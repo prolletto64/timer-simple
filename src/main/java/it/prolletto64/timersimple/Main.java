@@ -29,11 +29,9 @@ public class Main {
         frame.repaint();
         new Thread(() -> {
             LocalDateTime d;
-            int s = 99;
             while (true) {
                 d = LocalDateTime.now();
                 label.setText(d.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                s = d.getSecond();
                 System.gc();
                 try {
                     Thread.sleep(1000);
