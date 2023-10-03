@@ -2,9 +2,11 @@ package it.prolletto64.timersimple;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
+    @SuppressWarnings("BusyWait")
     public static void main(String[] args) {
         Color text = new Color(216, 222, 233);
         Color bg = new Color(48, 54, 65);
@@ -13,18 +15,32 @@ public class Main {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
-        JLabel label1 = new JLabel("ORA");
+        JLabel label = new JLabel("ORA");
         frame.setLayout(new GridLayout(1, 1));
-        label1.setFont(label1.getFont().deriveFont(22.0f));
-        frame.add(label1);
+        label.setFont(label.getFont().deriveFont(22.0f));
+        frame.add(label);
         frame.pack();
         frame.setSize(300, frame.getHeight());
         frame.setBackground(bg);
-        label1.setOpaque(true);
-        label1.setBackground(bg);
-        label1.setForeground(text);
+        label.setOpaque(true);
+        label.setBackground(bg);
+        label.setForeground(text);
         frame.pack();
         frame.repaint();
-
+        new Thread(() -> {
+            LocalDateTime d;
+            int s = 99;
+            while (true) {
+                d = LocalDateTime.now();
+                label.setText(d.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                s = d.getSecond();
+                System.gc();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.err.println(e.getMessage());
+                }
+            }
+        }).start();
     }
 }
