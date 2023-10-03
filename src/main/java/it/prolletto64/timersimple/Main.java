@@ -12,7 +12,7 @@ public class Main {
         Color bg = new Color(48, 54, 65);
         JFrame frame = new JFrame("ORA");
         frame.setAlwaysOnTop(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setResizable(false);
         frame.setVisible(true);
         JLabel label = new JLabel("ORA");
@@ -20,12 +20,11 @@ public class Main {
         label.setFont(label.getFont().deriveFont(22.0f));
         frame.add(label);
         frame.pack();
-        frame.setSize(300, frame.getHeight());
+        frame.setSize(300, frame.getHeight()+30);
         frame.setBackground(bg);
         label.setOpaque(true);
         label.setBackground(bg);
         label.setForeground(text);
-        frame.pack();
         frame.repaint();
         new Thread(() -> {
             LocalDateTime d;
